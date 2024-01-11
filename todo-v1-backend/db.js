@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const dbName = process.env.DB_NAME;
 const dbPass = encodeURIComponent(process.env.DB_PASSWORD);
@@ -13,6 +13,4 @@ const todoSchema = mongoose.Schema({
   completed: Boolean,
 });
 
-const todo = mongoose.model("todos", todoSchema);
-
-module.exports = { todo };
+export const todo = mongoose.model("todos", todoSchema);
