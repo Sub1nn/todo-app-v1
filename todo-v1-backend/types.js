@@ -1,4 +1,4 @@
-const zod = require("zod");
+import * as zod from "zod";
 
 /* 
 {
@@ -11,16 +11,23 @@ const zod = require("zod");
 }
 */
 
-const createTodo = zod.object({
+export const createTodo = zod.object({
   title: zod.string(),
   description: zod.string(),
 });
 
-const updateTodo = zod.object({
+export const updateTodo = zod.object({
   id: zod.string(),
 });
 
-module.exports = {
-  createTodo: createTodo,
-  updateTodo: updateTodo,
-};
+export const createUser = zod.object({
+  fullName: zod.string().trim().min(2).max(60),
+  email: zod.string().email().trim().toLowerCase(),
+  password: zod.string().min(8),
+  gender: zod
+    .string()
+    .refine((value) => ["male", "female", "other"].includes(value), {
+      message: "Invalid gender",
+    })
+    .default("male"),
+});
